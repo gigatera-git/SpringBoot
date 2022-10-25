@@ -9,6 +9,7 @@ It's qna board
       thymeleaf for html template
 
 [주의사항]
+
 *) @PostMapping 시 url에 QueryString으로 값을 넘기고 있다면 굳이 hidden textbox를 만들지 않아도 값이 불러와진다.
 
 *) Get, Post 가 같은 uri을 매핑하여 사용할때
