@@ -20,7 +20,7 @@ It's qna board
 *) Spring Security csrf 사용시
    th:action="@{/test}"  타임리프 action태그가 있어야 csrf hidden textbox 자동 생성된다. 없다면 수동으로 입력해야 한다.
    
-   <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
+   input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"
    
    
 *) form tag에 th:object="{boardVO}" 사용시
