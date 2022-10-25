@@ -18,7 +18,7 @@ It's qna board
    따라서 같은 결과를 내려면 Get, Post 매핑된 함수내 처리 내용이 같아야 한다.
    
 *) Spring Security csrf 사용시
-   th:action="@{/test}"  타임리프 action태그가 있어야 csrf hidden textbox 자동 생성된다. 없다면 아래처럼 수동으로 입력해야 한다.
+   th:action="@{/test}"  타임리프 action태그가 있어야 csrf hidden textbox 자동 생성된다. 없다면 수동으로 입력해야 한다.
    
    <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
    
