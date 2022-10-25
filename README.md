@@ -1,4 +1,4 @@
-SpringBoot > Board (basic)
+SpringBoot > QnA Board (basic)
 
 It's qna board 
     and()
