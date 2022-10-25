@@ -22,7 +22,9 @@ It's qna board
    
    <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
    
+   
 *) form tag에 th:object="{boardVO}" 사용시
    해당 프로퍼티에 값이 입력되면 th:field="*{uname}" 등에 자동 연동된다.
+   
    
 *) th:field = th:name + th:id  + th:value 와 동일하다.
