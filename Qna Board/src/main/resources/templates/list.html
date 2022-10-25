@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="ko">
+ <head>
+  <meta charset="UTF-8">
+  <title>list</title>
+  
+  <script src="https://code.jquery.com/jquery-1.12.4.js" integrity="sha256-Qw82+bXyGq6MydymqBxNPYTaUXXq7c8v3CwiYwLLNXU=" crossorigin="anonymous"></script>
+  <script language="javascript">
+  $(document).ready(function(){
+	  $("#btnWrite").on("click",function(){
+		  location.href = "/write";
+	  });
+	  
+	  $("#btnSearch").on("click",function(){
+		  $("#frmBoard").submit();
+	  });
+	  
+  });
+  </script>
+  
+ </head>
+ <body> 
+  	
+  	
+  	
+  	<h3>리스트</h3>
+  	<div>
+  	<button id="btnWrite" type="button">등록</button>
+  	</div>
+  	<form id="frmBoard" method="get">
+
+		제목<input type="hidden" name="searchopt" id="searchopt" value="title">
+		<input type="text" name="searchval" id="searchval" th:value="${boardSearchVO.searchval}">
+		<button type="button" id="btnSearch">검색</button>
+
+  		<table border="1">
+  			<thead>
+  				<tr>
+	  				<th>번호</th>
+	  				<th>제목</th>
+	  				<th>등록일</th>
+  				</th>
+  				</tr>
+  			</thead>
+  			<tbody>
+  				<tr th:if="${#lists.size(lists)>0}" th:each="rs, loop : ${lists}">
+  					<td th:text="${(boardPagingVO.getInttotalcount() -((boardPagingVO.getPage() - 1) * boardPagingVO.getIntpagesize()))-loop.index}"></td>
+  					<td>
+  						<img src="/images/common/level.gif" border="0" align="absmiddle" th:width="${rs.relvl*7}">
+  						<img src="/images/common/ico_reply.gif" border="0" align="absmiddle" th:if="${rs.relvl>0}">
+  						<a th:href="@{|/view/${rs.idx}?page=${boardPagingVO.getPage()}&searchopt=${boardSearchVO.getSearchopt()}&searchval=${boardSearchVO.getSearchval()}|}" th:text="${rs.title}"></a>
+  					</td>
+  					<td th:text="${#temporals.format( rs.regdate, 'yyyy-MM-dd HH:mm:ss' )}"></td>
+  				</tr>
+  				
+  				<tr th:if="${#lists.size(lists)<=0}">
+  					<td colspan="3">해당 내용이 없습니다</td>
+  				</tr>
+  			</tbody>
+  		</table>
+  		
+		<div id="pagination" th:utext="${pagination}">
+		</div>
+  		
+  	</form>
+  	
+ </body>
+</html>

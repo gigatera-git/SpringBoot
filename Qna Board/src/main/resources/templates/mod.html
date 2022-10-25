@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="ko">
+ <head>
+  <meta charset="UTF-8">
+  <title>mod</title>
+  
+  <script src="https://code.jquery.com/jquery-1.12.4.js" integrity="sha256-Qw82+bXyGq6MydymqBxNPYTaUXXq7c8v3CwiYwLLNXU=" crossorigin="anonymous"></script>
+  <script language="javascript">
+  $(document).ready(function(){
+	  
+	  $("#btnList").on('click',function(){
+		 var page = $("#spage").val();
+		  var searchopt = $("#sopt").val();
+		  var searchval = $("#sval").val();
+		  
+		  var url = "/list?page="+page+"&searchopt="+searchopt+"&searchval="+searchval;
+		  location.href = url;  
+	  });
+	  
+	  $("#btnView").on('click',function(){
+		  var idx = $("#idx").val();
+		  var page = $("#spage").val();
+		  var searchopt = $("#sopt").val();
+		  var searchval = $("#sval").val();
+		  
+		  var url = "/view/"+idx+"?page="+page+"&searchopt="+searchopt+"&searchval="+searchval;
+		  location.href = url;  
+	  });
+	  
+	  $("#btnMod").on('click',function(){
+		  /*
+		  var uname = $("#uname").val();
+		  var pwd = $("#pwd").val();
+		  var pwd2 = $("#pwd2").val();
+		  var title = $("#title").val();
+		  var content = $("#content").val();
+		  
+		  
+		  if (uname=='' || uname==undefined) {
+			  alert("이름이 없습니다");
+			  $("#uname").val('');
+			  $("#uname").focus();
+			  return;
+		  }
+		   if (pwd=='' || pwd==undefined) {
+			  alert("비밀번호가 없습니다");
+			  $("#pwd").val('');
+			  $("#pwd").focus();
+			  return;
+		   }
+		   if (pwd2=='' || pwd2==undefined) {
+			  alert("비밀번호2가 없습니다");
+			  $("#pwd2").val('');
+			  $("#pwd2").focus();
+			  return;
+		   }
+		   if (pwd!=pwd2) {
+			   alert("비밀번호 확인이 일치하지 않습니다");
+			  $("#pwd2").val('');
+			  $("#pwd2").focus();
+			  return;
+		   }
+		   if (title=='' || title==undefined) {
+			  alert("제목이 없습니다");
+			  $("#title").val('');
+			  $("#title").focus();
+			  return;
+		   }
+		   if (content=='' || content==undefined) {
+			  alert("내용이 없습니다");
+			  $("#content").val('');
+			  $("#content").focus();
+			  return;
+		   }
+		   */
+		   //var url = '/mod/' + $("#idx").val();
+		   //$("#frmBoard").attr({'action':url, 'method':'post'}).submit();
+		   
+		   //$("#frmBoard").attr({'action':'/modOk', 'method':'post'}).submit();
+		   $("#frmBoard").submit();
+	  });
+	  
+  });
+  </script>
+  
+ </head>
+ <body>
+  	
+  	<h3>수정</h3>
+  	<form id="frmBoard" method="post" th:object="${boardVO}">
+		
+		<input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
+		
+		<!--
+			th:object에 있는 property만 th:field가능
+			get, post action uri 동일할시 hidden없고, querystring 만 있어도 동일하게 작동한다 
+		-->
+  		<input type="hidden" name="spage" id="spage" th:value="${boardPagingVO.page}">
+  		<input type="hidden" name="sopt" id="sopt" th:value="${boardSearchVO.searchopt}">
+  		<input type="hidden" name="sval" id="sval" th:value="${boardSearchVO.searchval}">
+  		<input type="hidden" th:field="*{idx}">
+  		
+  	
+  		<div th:if="${#fields.hasAnyErrors()}">
+            <div th:each="err : ${#fields.allErrors()}" th:text="${err}" />
+        </div>
+        
+       
+        <br>
+  		이름 : <input type="text" th:field="*{uname}" th:errorClass="field-error" maxlength="30" autofocus >
+  				<span class="field-error" th:errors="*{uname}"></span>
+  				<br>
+  		
+  		비번 : <input type="password" th:field="*{pwd}" th:errorClass="field-error" maxlength="30" >
+  				<span class="field-error" th:errors="*{pwd}"></span>
+  				<br>
+		비번2 : <input type="password" th:field="*{pwd2}" th:errorClass="field-error" maxlength="30" >
+  				<span class="field-error" th:errors="*{pwd2}"></span>
+  				<br>  				
+  		
+  		제목 : <input type="text" th:field="*{title}" th:errorClass="field-error" maxlength="200" >
+  				<span class="field-error" th:errors="*{title}"></span>
+  				<br>
+  		
+  		내용 : <textarea th:field="*{content}"  th:errorClass="field-error" style="width:300px;height:100px;" ></textarea>
+  				<span class="field-error" th:errors="*{content}"></span>
+  				<br>
+  				
+  				<br>  		
+  				
+  				<button id="btnList" type="button">리스트</button>
+  				<button id="btnView" type="button">상세</button>
+  				...
+  				<button id="btnMod" type="button">수정</button>
+  		
+  	</form>
+  	
+ </body>
+</html>

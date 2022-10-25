@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="ko">
+ <head>
+  <meta charset="UTF-8">
+  <title>view</title>
+  
+  <script src="https://code.jquery.com/jquery-1.12.4.js" integrity="sha256-Qw82+bXyGq6MydymqBxNPYTaUXXq7c8v3CwiYwLLNXU=" crossorigin="anonymous"></script>
+  <script language="javascript">
+  $(document).ready(function(){
+	  
+	  $("#btnList").on('click',function(){
+		  var page = $("#page").val();
+		  var searchopt = $("#searchopt").val();
+		  var searchval = $("#searchval").val();
+		  
+		  var url = "/list?page="+page+"&searchopt="+searchopt+"&searchval="+searchval;
+		  location.href = url;
+	  });
+	  
+	  $("#btnMod").on('click',function(){
+		 
+		  var idx = $("#idx").val();
+		  var page = $("#page").val();
+		  var searchopt = $("#searchopt").val();
+		  var searchval = $("#searchval").val();
+		  
+		  var url = "/mod/"+idx+"?page="+page+"&searchopt="+searchopt+"&searchval="+searchval;
+		  location.href = url;
+	  });
+	  
+	  $("#btnDel").on('click',function(){
+		  if (confirm("삭제할까요?")) {
+			 $("#frmBoard").attr({'action':'/del','method':'post'}).submit();
+		  }
+	  });
+	  
+	  $("#btnReply").on('click',function(){
+		  
+		  var idx = $("#idx").val();
+		  var page = $("#page").val();
+		  var searchopt = $("#searchopt").val();
+		  var searchval = $("#searchval").val();
+		  
+		  var url = "/reply/"+idx+"?page="+page+"&searchopt="+searchopt+"&searchval="+searchval;
+		  location.href = url;
+		  
+	  });
+	  
+  });
+  </script>
+  
+ </head>
+ <body> 
+  	
+  	
+  	
+  	<h3>상세</h3>
+  	<form id="frmBoard" method="post" th:action="@{/del}">
+  		
+  		<input type="hidden" name="idx" id="idx" th:value="${rs.idx}">
+  		<input type="hidden" name="page" id="page" th:value="${boardPagingVO.page}">
+  		<input type="hidden" name="searchopt" id="searchopt" th:value="${boardSearchVO.searchopt}">
+  		<input type="hidden" name="searchval" id="searchval" th:value="${boardSearchVO.searchval}">
+  		
+  		<input type="hidden" name="ref" id="ref" th:value="${rs.ref}">
+  		<input type="hidden" name="restep" id="restep" th:value="${rs.restep}">
+  		<input type="hidden" name="relvl" id="relvl" th:value="${rs.relvl}">
+  		
+  		
+  		<table border="1">
+  			<tbody>
+  				<tr>
+	  				<th>번호</th>
+	  				<td th:text="${rs.idx}"></td>
+	  			</tr>
+	  			<tr>
+	  				<th>이름</th>
+	  				<td th:text="${rs.uname}"></td>
+	  			</tr>
+	  			<tr>	
+	  				<th>제목</th>
+	  				<td th:text="${rs.title}"></td>
+	  			</tr>
+	  			<tr>	
+	  				<th>내용</th>
+	  				<td th:text="${rs.content}"></td>
+	  			</tr>
+	  			<tr>	
+	  				<th>클릭수</th>
+	  				<td th:text="${rs.click}"></td>
+	  			</tr>
+	  			<tr>	
+	  				<th>등록일</th>
+	  				<td th:text="${rs.regdate}"></td>
+  				</th>
+  				</tr>
+  			</tbody>
+
+  		</table>
+		
+		<br>
+		<div>
+			<button type="button" id="btnList">리스트</button>
+			<button type="button" id="btnReply">답변</button>
+			<button type="button" id="btnMod">수정</button>
+			<button type="button" id="btnDel">삭제</button>
+		</div>
+  		
+  	</form>
+  	
+ </body>
+</html>

@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="ko">
+ <head>
+  <meta charset="UTF-8">
+  <title>write</title>
+  
+  <script src="https://code.jquery.com/jquery-1.12.4.js" integrity="sha256-Qw82+bXyGq6MydymqBxNPYTaUXXq7c8v3CwiYwLLNXU=" crossorigin="anonymous"></script>
+  <script language="javascript">
+  $(document).ready(function(){
+	  
+	  $("#btnList").on("click",function(){
+		  location.href = "/list";
+	  });
+	  
+	  $("#btnWrite").on('click',function(){
+		  var uname = $("#uname").val();
+		  var pwd = $("#pwd").val();
+		  var title = $("#title").val();
+		  var content = $("#content").val();
+		  /*
+		  if (uname=='' || uname==undefined) {
+			  alert("이름이 없습니다");
+			  $("#uname").val('');
+			  $("#uname").focus();
+			  return;
+		  }
+		   if (pwd=='' || pwd==undefined) {
+			  alert("비밀번호가 없습니다");
+			  $("#pwd").val('');
+			  $("#pwd").focus();
+			  return;
+		   }
+		   if (title=='' || title==undefined) {
+			  alert("제목이 없습니다");
+			  $("#title").val('');
+			  $("#title").focus();
+			  return;
+		   }
+		   if (content=='' || content==undefined) {
+			  alert("내용이 없습니다");
+			  $("#content").val('');
+			  $("#content").focus();
+			  return;
+		   }
+		   */
+		   $("#frmBoard").attr({'action':'/write','method':'post'}).submit();
+	  });
+	  
+  });
+  </script>
+  
+ </head>
+ <body>
+  	
+  	<h3>글쓰기</h3>
+  	<form id="frmBoard" method="post"  th:action="@{/write}" th:object="${boardVO}">
+  	
+  
+  	
+  		<div th:if="${#fields.hasAnyErrors()}">
+            <div th:each="err : ${#fields.allErrors()}" th:text="${err}" />
+        </div><br>
+  		
+  		이름 : <input type="text" name="uname" id="uname" th:field="*{uname}" th:errorClass="field-error" maxlength="30" autofocus complete="off">
+  				<span class="field-error" th:errors="*{uname}"></span>
+  				<br>
+  		
+  		비번 : <input type="password" name="pwd" id="pwd" th:field="*{pwd}" th:errorClass="field-error" maxlength="30" complete="off">
+  				<span class="field-error" th:errors="*{pwd}"></span>
+  				<br>
+		비번2 : <input type="password" name="pwd2" id="pwd" th:field="*{pwd2}" th:errorClass="field-error" maxlength="30" complete="off">
+  				<span class="field-error" th:errors="*{pwd2}"></span>
+  				<br>  				
+  		
+  		제목 : <input type="text" name="title" id="title" th:field="*{title}" th:errorClass="field-error" maxlength="200" complete="off">
+  				<span class="field-error" th:errors="*{title}"></span>
+  				<br>
+  		
+  		내용 : <textarea name="content" id="content"  th:field="*{content}" th:errorClass="field-error" style="width:300px;height:100px;" complete="off"></textarea>
+  				<span class="field-error" th:errors="*{content}"></span>
+  				<br>
+  				
+  				<br>
+  				<button id="btnList" type="button">리스트</button>  		
+  				<button id="btnWrite" type="button">등록</button>
+  				
+  				
+  		
+  	</form>
+  	
+ </body>
+</html>

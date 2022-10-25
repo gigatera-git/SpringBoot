@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+        
+<mapper namespace="kr.co.test2.mapper.BoardMapper">
+
+	<!-- list pre 	-->
+	<select id="getPreList" resultType="map">
+		<![CDATA[
+		Select Count(*) as intTotalCount, CEILING((COUNT(*)+0.0)/#{boardPagingVO.intpagesize}) as intTotalPage
+		from tbl_board
+		where idx>0
+		]]> 
+		<if test="boardSearchVO.searchopt != null and boardSearchVO.searchval != null">
+			<if test="boardSearchVO.searchopt != '' and boardSearchVO.searchval != ''">
+				and ${boardSearchVO.searchopt} like CONCAT('%',#{boardSearchVO.searchval},'%')
+			</if>
+		</if>
+	</select>
+
+	<!-- list 	-->
+	<select id="getList" resultType="BoardVO">
+		<![CDATA[
+		select idx,title,content,uname,pwd,ifnull(ref,1) as ref,ifnull(restep,0) as restep,ifnull(relvl,0) as relvl,regdate,moddate 
+		from tbl_board
+		where idx>0
+		]]> 
+	
+		<if test="boardSearchVO.searchopt != null and boardSearchVO.searchval != null">
+			<if test="boardSearchVO.searchopt != '' and boardSearchVO.searchval != ''">
+				and ${boardSearchVO.searchopt} like CONCAT('%',#{boardSearchVO.searchval},'%')
+			</if>
+		</if>
+		
+		<![CDATA[
+		order by ref desc, restep, relvl
+		limit #{boardPagingVO.startnum},#{boardPagingVO.intpagesize}
+		]]>
+	</select>
+	
+	 
+	 <!-- view -->
+	 <update id="setClick">
+	 	update tbl_board set click=click+1 where idx=#{idx};
+	 </update>
+	 <select id="getView" resultType="map">
+	 	select
+	 	 idx,title,content,uname,pwd,ifnull(ref,1) as ref,ifnull(restep,0) as restep,ifnull(relvl,0) as relvl,ifnull(click,1) as click,regdate,moddate
+	 	 from tbl_board where idx=#{idx};
+	 </select>
+	 
+	 
+	 <!-- mod -->
+	 <select id="getMod" resultType="map">
+	 	select * from tbl_board where idx=#{idx};
+	 </select>
+	 <select id="getPwdChk" resultType="int">
+	 	select count(*) from tbl_board where idx=#{boardVO.idx} and pwd=#{boardVO.pwd};
+	 </select>
+	 <update id="getModOk">
+	 	update tbl_board set 
+	 		uname=#{boardVO.uname}, 
+	 		title=#{boardVO.title},
+	 		content=#{boardVO.content},
+	 		moddate=now()
+	 	where idx=#{boardVO.idx}
+	 </update>
+	 
+	 
+	 <!-- delete -->
+	 <delete id="delOk">
+	 	delete from tbl_board where idx=#{idx};
+	 </delete>
+	
+	
+	<!-- write 	-->
+	<select id="getRef" resultType="int">
+		select ifnull(max(ref),0)+1 from tbl_board
+	</select>
+	<insert id="writeOk">
+		<selectKey keyProperty="idx" resultType="int" order="AFTER">
+			select last_insert_id() as idx
+		</selectKey>
+		insert into tbl_board(title,content,uname,pwd,ref,restep,relvl) 
+		values(#{title},#{content},#{uname},#{pwd},#{ref},#{restep},#{relvl});
+	</insert>
+	
+	<!-- reply -->
+	 <select id="getReGrp" resultType="map">
+	 	select ref,restep,relvl from tbl_board where idx=#{idx};
+	 </select>
+	 <update id="replyPre" parameterType="map">
+	 	update tbl_board set restep=restep+1 where ref=#{ref} and restep>#{restep}
+	 </update>
+	 <insert id="replyOk">
+	 	insert into tbl_board(title,content,uname,pwd,ref,restep,relvl) 
+		values(#{title},#{content},#{uname},#{pwd},#{ref},#{restep},#{relvl});
+	 </insert>
+	
+</mapper>        
