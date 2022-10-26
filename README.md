@@ -1,4 +1,4 @@
-SpringBoot > QnA Board (basic)
+1. SpringBoot > QnA Board (basic)
 
 It's qna board 
     and()
@@ -30,3 +30,7 @@ It's qna board
 5) th:field = th:name + th:id  + th:value 와 동일하다.
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+2. SpringBoot > login n out with security
+스프링 시큐리티5에서 회원가입 , 로그인 , 로그아웃 
+
