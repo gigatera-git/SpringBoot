@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="ko">
+ <head>
+  <meta charset="UTF-8">
+  <title>index</title>
+ </head>
+ <body>
+  
+  index.html
+  <br><br>
+  
+<a sec:authorize="isAnonymous()" th:href="@{/login}">로그인</a>
+<a sec:authorize="isAuthenticated()" th:href="@{/logout}">로그아웃</a>
+<br><br>
+
+<span sec:authorize="isAuthenticated()">
+	아이디 : <span th:text="${#authentication.getPrincipal().getUsername()}"></span>  
+</span>
+     
+  
+ </body>
+</html>

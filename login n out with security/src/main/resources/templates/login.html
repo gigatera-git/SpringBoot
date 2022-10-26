@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="ko">
+ <head>
+  <meta charset="UTF-8">
+  <title>index</title>
+ </head>
+ <body>
+  
+ <h3> login.html</h3>
+ 
+ <form method="post" th:action="@{/login}">
+ 	
+ 	<div th:if="${param.error}">
+            사용자ID 또는 비밀번호를 확인해 주세요.
+    </div>
+	 
+	 <table border="1">
+	 	<tr>
+	 	<td>id</td><td><input type="text" name="uid" id="uid" value="" required autofocus></td>
+	 	</tr>
+	 	<tr>
+	 	<td>pwd</td><td><input type="password" name="password" id="password" value="" required></td>
+	 	</tr>
+	 </table>
+ 	 <button type="submit">login</button>
+ 	 
+ 	 
+ </form> 
+  
+  
+ </body>
+</html>

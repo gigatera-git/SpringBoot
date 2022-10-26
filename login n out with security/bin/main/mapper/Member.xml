@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+        
+<mapper namespace="kr.co.login.mapper.MemberMapper">
+
+	<insert id="JoinOk">
+		insert into users(uid,uname,tel,email,password,created_at,updated_at)
+		values(#{uid},#{uname},#{tel},#{email},#{password},#{created_at},#{updated_at});
+	</insert>
+	
+	<select id="getMember" resultType="MemberVO">
+		select * from users where uid=#{uid}
+	</select>
+
+</mapper>  

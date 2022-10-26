@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="ko">
+ <head>
+  <meta charset="UTF-8">
+  <title>Document</title>
+ </head>
+ <body>
+  
+  <h3> join </h3>
+  <form method="post">
+  
+  <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
+  
+  <table border="1">
+  <tr>
+  <th>uid</th><td><input type="text" name="uid" value=""></td>
+  </tr>
+  <tr>
+  <th>password</th><td><input type="password" name="password" value=""></td>
+  </tr>
+  <tr>
+  <th>uname</th><td><input type="text" name="uname" value=""></td>
+  </tr>
+  <tr>
+  <th>tel</th><td><input type="text" name="tel" value=""></td>
+  </tr>
+  <tr>
+  <th>email</th><td><input type="text" name="email" value=""></td>
+  </tr>
+  </table>
+  
+  
+  <button type="submit">submit</button>
+  
+  </form>
+  
+  
+ </body>
+</html>
