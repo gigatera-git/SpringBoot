@@ -14,7 +14,22 @@
 <br><br>
 
 <span sec:authorize="isAuthenticated()">
-	아이디 : <span th:text="${#authentication.getPrincipal().getUsername()}"></span>  
+	아이디 : <span th:text="${#authentication.getPrincipal().getUsername()}"></span>
+	<hr>
+	디비에서 추출
+	<table border="1">
+	<tr>
+	<td>아이디</td><td th:text="${memberVO.uid}"></td>
+	</tr>
+	<tr>
+	<td>패스워드</td><td th:text="${memberVO.password}"></td>
+	</tr>
+	<tr>
+	<td>이름</td><td th:text="${memberVO.uname}"></td>
+	</tr>
+	<tr>
+	<td>이메일</td><td th:text="${memberVO.email}"></td>
+	</tr>
 </span>
      
   
