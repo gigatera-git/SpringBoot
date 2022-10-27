@@ -18,7 +18,19 @@ public class MemberController {
 	private final MemberService memberSerivice;
 
 	@GetMapping("/")
-	public String index() {
+	public String index(Model model) {
+
+		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		if (principal instanceof UserDetails) {
+			UserDetails userDetails = (UserDetails)principal;
+			String uid = userDetails.getUsername();
+
+			Optional<MemberVO> mv = this.memberSerivice.getMember(uid);
+			MemberVO memberVO = mv.get();
+			
+			model.addAttribute("memberVO", memberVO);
+		}
+		
 		return "index";
 	}
 	
