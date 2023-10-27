@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="ko"
+	xmlns:th="http://www.thymeleaf.org"
+    xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<html lang="ko">
+ <head>
+  <meta charset="UTF-8">
+  <title>Document</title>
+ </head>
+ <body>
+
+<!--
+1) th:action 을 사용하는 이유
+  Spring Security 사용시 csrf 를 자동으로 불러온다 
+  
+2) th:object="${memberDTO}"
+   컨트롤러의 @Valid MemberDTO memberDTO 와 연결된다 
+  
+2) th:field="*{uid}"
+   id="uid" 와 동일하다
+-->
+  
+<h3> 회원가입 </h3>
+<form id="frmMember" method="post" th:object="${memberDTO}" th:action="@{/join}">
+  
+  <table border="1">
+  <tr>
+  <th>아이디</th>
+  <td>
+	<input type="text" th:field="*{uid}" th:errorclass="field-error" name="uid">
+	<div th:if="${#fields.hasErrors('uid')}" th:errorclass="field-error" th:errors="*{uid}">uid err</div>
+  </td>
+  </tr>
+  <tr>
+  <th>비밀번호</th>
+  <td>
+	<input type="password" th:field="*{password}" th:errorclass="field-error" name="password">
+	<div th:if="${#fields.hasErrors('password')}" th:errorclass="field-error" th:errors="*{password}">password err</div>
+  </td>
+  </tr>
+  <tr>
+  <th>비밀번호 확인</th>
+  <td>
+	<input type="password" th:field="*{password2}" th:errorclass="field-error" name="password2">
+	<div th:if="${#fields.hasErrors('password2')}" th:errorclass="field-error" th:errors="*{password2}">password2 err</div>
+  </td>
+  </tr>
+  <tr>
+  <th>이름</th>
+  <td>
+	<input type="text" th:field="*{uname}" th:errorclass="field-error" name="uname">
+	<div th:if="${#fields.hasErrors('uname')}" th:errorclass="field-error" th:errors="*{uname}">uname err</div>
+  </td>
+  </tr>
+  <tr>
+  <th>핸드폰</th>
+  <td>
+	<input type="text" th:field="*{tel}" th:errorclass="field-error" name="tel">
+	<div th:if="${#fields.hasErrors('tel')}" th:errorclass="field-error" th:errors="*{tel}">tel err</div>
+  </td>
+  </tr>
+  <tr>
+  <th>이메일</th>
+  <td>
+	<input type="text" th:field="*{email}" th:errorclass="field-error" name="email">
+	<div th:if="${#fields.hasErrors('email')}" th:errorclass="field-error" th:errors="*{email}">email err</div>
+  </td>
+  </td>
+  </tr>
+  </table>
+  
+  <hr>
+  <button type="submit">가입하기</button>
+  
+  </form>
+  
+ </body>
+</html>
